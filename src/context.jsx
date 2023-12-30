@@ -34,7 +34,12 @@ const AppProvider = ({ children }) => {
         fetchMeals(randomMealURL)
     }
 
+    useEffect(()=>{
+        fetchMeals(allMealsURL)
+    },[])
+
     useEffect(() => {
+        if(!searchTerm) return
         fetchMeals(`${allMealsURL}${searchTerm}`);
     }, [searchTerm]);
 
