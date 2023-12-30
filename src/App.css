@@ -72,9 +72,6 @@ body {
   font-weight: 400;
   line-height: 1.75;
   color: var(--textColor);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 p {
@@ -235,15 +232,11 @@ ul {
   color:var(--red-dark)
 }
 /* Meals */
-
 .section,.section-center{
   padding:3rem 0;
   width:var(--view-width);
   max-width:var(--max-width);
   margin:0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .section-center{

@@ -8,10 +8,10 @@ function App() {
 
   return (
     <main>
+      <Search />
       <Meals />
       {/* <Favorites /> */}
-      {/* <Search />
-        <Modal /> */}
+      {/* <Modal /> */}
     </main>
   )
 }
