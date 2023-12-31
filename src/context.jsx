@@ -12,17 +12,21 @@ const AppProvider = ({ children }) => {
     const [meals, setMeals] = useState([]);
     const [searchTerm, setSearchTerm] = useState('')
 
+    const [showModal, setShowModal] = useState(false);
+    const [selectedMeal, setSelectedMeal] = useState(null);
+
+
     const fetchMeals = async (url) => {
         setLoading(true);
         try {
             const { data } = await axios(url);
-            if(data.meals){
+            if (data.meals) {
                 setMeals(data.meals)
             }
-            else{
+            else {
                 setMeals([])
             }
-            
+
 
         } catch (error) {
             console.log(error.response)
@@ -30,25 +34,37 @@ const AppProvider = ({ children }) => {
         setLoading(false)
     }
 
-    const fetchRandomMeal = () =>{
+    const fetchRandomMeal = () => {
         fetchMeals(randomMealURL)
     }
 
-    useEffect(()=>{
-        fetchMeals(allMealsURL)
-    },[])
+    const selectMeal = (idMeal, favoriteMeal) => {
+
+        let meal;
+        meal = meals.find((meal) => meal.idMeal == idMeal)
+        setSelectedMeal(meal)
+        setShowModal(true);
+
+    }
+
+    const closeModal = () => {
+        setShowModal(false); 
+    }
 
     useEffect(() => {
-        if(!searchTerm) return
+        fetchMeals(allMealsURL)
+    }, [])
+
+    useEffect(() => {
+        if (!searchTerm) return
         fetchMeals(`${allMealsURL}${searchTerm}`);
     }, [searchTerm]);
 
-
-
-
-
     return (
-        <AppContext.Provider value={{ loading, meals, setSearchTerm, fetchRandomMeal }} >
+        <AppContext.Provider value={{
+            loading, meals, setSearchTerm, fetchRandomMeal,
+            showModal, selectedMeal, selectMeal, closeModal
+        }} >
             {children}
         </AppContext.Provider>
     )
